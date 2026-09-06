@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear cuenta | AGROVIA</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}">
+</head>
+<body class="account-page">
+  <main class="account-layout">
+    <section class="account-intro">
+      <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">A</span><span>AGROVIA</span></a>
+      <div><div class="eyebrow">Crece en comunidad</div><h1>Haz parte de<br><em>AGROVIA.</em></h1><p>Compra directamente o publica la cosecha que mueve tu negocio.</p></div>
+      <img src="{{ url_for('static', filename='images/habas.png') }}" alt="Habas frescas">
+    </section>
+    <section class="account-card">
+      <a class="back-link" href="{{ url_for('home') }}">← Volver al mercado</a>
+      <div class="modal-kicker">AGROVIA / NUEVA CUENTA</div>
+      <h2>Crear cuenta</h2>
+      <p class="account-muted">Elige cómo quieres participar en el mercado.</p>
+      <form data-auth-form="register">
+        <label>Tipo de cuenta<select name="role"><option value="buyer">Soy comprador</option><option value="farmer">Soy agricultor</option></select></label>
+        <label>Nombre completo<input name="name" placeholder="Tu nombre" required></label>
+        <label>Empresa o finca<input name="company" placeholder="Nombre de tu negocio"></label>
+        <label>Ciudad o región<input name="location" placeholder="Ej. Medellín"></label>
+        <label>Correo electrónico<input name="email" type="email" placeholder="tu@correo.com" required></label>
+        <label>Contraseña<input name="password" type="password" minlength="6" placeholder="Mínimo 6 caracteres" required></label>
+        <div class="form-error" data-error></div>
+        <button class="primary-button full" type="submit">Crear mi cuenta <span>↗</span></button>
+      </form>
+      <p class="account-switch">¿Ya tienes cuenta? <a href="{{ url_for('login_page') }}">Ingresar</a></p>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='auth.js') }}"></script>
+</body>
+</html>
