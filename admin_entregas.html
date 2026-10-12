@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Entregas{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1>Confirmación de entregas</h1>
+    <p class="muted">Valida la entrega del producto y confirma la recepción final de la operación.</p>
+
+    <div class="table-container">
+        <table class="table">
+            <tr>
+                <th>Operación</th>
+                <th>Producto</th>
+                <th>Comprador</th>
+                <th>Transportista</th>
+                <th>Vehículo</th>
+                <th>Transporte</th>
+                <th>Entrega</th>
+                <th>Acción</th>
+            </tr>
+
+            {% for item in entregas %}
+            <tr>
+                <td>{{ item.codigo_operacion }}</td>
+                <td>{{ item.producto }}</td>
+                <td>{{ item.comprador }}</td>
+                <td>{{ item.nombre_empresa }}</td>
+                <td>{{ item.placa }}</td>
+                <td>{{ item.codigo_transporte }}<br><small>{{ item.estado_transporte }}</small></td>
+                <td>
+                    {% if item.id_entrega %}
+                        {{ item.codigo_entrega }}<br>
+                        <small>{{ item.estado_entrega }}</small>
+                    {% else %}
+                        <span class="muted">Sin entrega</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not item.id_entrega %}
+                    <form method="post" action="{{ url_for('confirmar_entrega', id_transporte=item.id_transporte) }}" class="inline-form">
+                        <div class="stacked-fields">
+                            <input type="text" name="nombre_receptor" value="Recepción administrativa" placeholder="Receptor">
+                            <input type="text" name="documento_receptor" value="N/A" placeholder="Documento">
+                            <textarea name="observaciones" rows="2" placeholder="Observaciones"></textarea>
+                            <button type="submit" class="btn">Confirmar entrega</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <span class="badge">Confirmada</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">No hay transportes registrados.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</main>
+{% endblock %}
